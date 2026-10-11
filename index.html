@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>DPS KBD Study Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background: #030712; color: #f8fafc; min-height: 100vh; padding-bottom: 90px; }
+    .nav { background: #0b1329; border-bottom: 1px solid #1e293b; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+    .badge { background: #38bdf8; color: #030712; font-weight: 800; font-size: 0.75rem; padding: 3px 8px; border-radius: 6px; }
+    .wrap { max-width: 600px; margin: 0 auto; padding: 12px; }
+    .school { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.4); border-radius: 12px; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+    .locked { background: #091124; border: 1px solid #1e293b; border-radius: 12px; padding: 12px; text-align: center; margin-bottom: 12px; }
+    .locked h2 { font-size: 1.6rem; letter-spacing: 4px; color: #fff; font-weight: 900; }
+    .tabs { display: flex; gap: 6px; background: #070d1d; border: 1px solid #1e293b; border-radius: 10px; padding: 4px; margin-bottom: 12px; }
+    .tab { flex: 1; background: none; border: none; color: #94a3b8; padding: 8px 4px; font-size: 0.78rem; font-weight: 700; border-radius: 8px; cursor: pointer; }
+    .tab.active { background: #38bdf8; color: #030712; }
+    .pills { display: flex; justify-content: center; gap: 6px; margin-bottom: 12px; }
+    .pill { background: #0b1329; border: 1px solid #1e293b; color: #94a3b8; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+    .pill.active { background: #38bdf8; color: #030712; border-color: #38bdf8; }
+    .card { background: #0b1329; border: 1px solid #1e293b; border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+    .btn { display: block; width: 100%; border: none; border-radius: 8px; padding: 10px; font-weight: 700; font-size: 0.84rem; cursor: pointer; margin-top: 8px; text-align: center; text-decoration: none; }
+    .btn-pdf { background: #1e293b; color: #fff; }
+    .btn-yt { background: #dc2626; color: #fff; }
+    .chat { background: #050b18; border: 1px solid #1e293b; border-radius: 10px; padding: 10px; min-height: 240px; max-height: 340px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+    .msg-u { align-self: flex-end; background: #0369a1; color: #fff; padding: 8px 12px; border-radius: 12px 12px 2px 12px; font-size: 0.85rem; max-width: 85%; }
+    .msg-b { align-self: flex-start; background: #0f172a; color: #e2e8f0; padding: 10px 12px; border-radius: 12px 12px 12px 2px; font-size: 0.85rem; max-width: 90%; line-height: 1.45; }
+    .dock { position: fixed; bottom: 0; left: 0; right: 0; background: #050b18; border-top: 1px solid #38bdf8; padding: 10px 14px; display: flex; align-items: center; gap: 10px; z-index: 200; }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span class="badge">DPS</span>
+      <strong style="font-size:0.92rem;">KBD Self Study</strong>
+    </div>
+    <span id="gradeTag" style="font-size:0.75rem;color:#38bdf8;font-weight:700;">Class 8</span>
+  </header>
+
+  <div class="wrap">
+    <div class="school">
+      <div>
+        <h4 style="color:#34d399;font-size:0.85rem;">DELHI PUBLIC SCHOOL</h4>
+        <p style="color:#94a3b8;font-size:0.7rem;">Kadirabad, Darbhanga • CBSE Affil. 330508</p>
+      </div>
+      <span style="color:#34d399;font-size:0.75rem;font-weight:800;">OFFICIAL</span>
+    </div>
+
+    <div class="locked">
+      <h2>LOCKED IN.</h2>
+      <p style="color:#38bdf8;font-size:0.75rem;font-weight:800;letter-spacing:1px;margin-top:2px;">CLASS 6 TO 10 • SELF-STUDY HQ</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" id="tab1" onclick="showSec('sub')">📚 All Subjects</button>
+      <button class="tab" id="tab2" onclick="showSec('ai')">🤖 AI Solver</button>
+      <button class="tab" id="tab3" onclick="showSec('dl')">💾 Downloads</button>
+    </div>
+
+    <!-- 1. SUBJECTS SECTION -->
+    <div id="sec-sub">
+      <div class="pills">
+        <button class="pill" onclick="setGrade(6)">Class 6</button>
+        <button class="pill" onclick="setGrade(7)">Class 7</button>
+        <button class="pill active" onclick="setGrade(8)">Class 8</button>
+        <button class="pill" onclick="setGrade(9)">Class 9</button>
+        <button class="pill" onclick="setGrade(10)">Class 10</button>
+      </div>
+
+      <div class="card">
+        <span style="color:#60a5fa;font-size:0.72rem;font-weight:800;">MATHEMATICS</span>
+        <h3 id="mTxt" style="font-size:1.05rem;margin:4px 0;">Class 8 Mathematics</h3>
+        <p style="color:#94a3b8;font-size:0.8rem;">NCERT exercises, formulas & exemplar practice.</p>
+        <button class="btn btn-pdf" onclick="openBook('Mathematics')">📄 Download NCERT PDF</button>
+        <button class="btn btn-yt" onclick="openYT('Mathematics')">▶ Watch YouTube Video Lecture</button>
+      </div>
+
+      <div class="card">
+        <span style="color:#34d399;font-size:0.72rem;font-weight:800;">SCIENCE</span>
+        <h3 id="sTxt" style="font-size:1.05rem;margin:4px 0;">Class 8 Science</h3>
+        <p style="color:#94a3b8;font-size:0.8rem;">Physics, Chemistry & Biology with diagrams.</p>
+        <button class="btn btn-pdf" onclick="openBook('Science')">📄 Download NCERT PDF</button>
+        <button class="btn btn-yt" onclick="openYT('Science')">▶ Watch YouTube Video Lecture</button>
+      </div>
+
+      <div class="card">
+        <span style="color:#fbbf24;font-size:0.72rem;font-weight:800;">SOCIAL SCIENCE</span>
+        <h3 id="ssTxt" style="font-size:1.05rem;margin:4px 0;">Class 8 Social Science</h3>
+        <p style="color:#94a3b8;font-size:0.8rem;">History, Civics and Geography notes.</p>
+        <button class="btn btn-pdf" onclick="openBook('Social Science')">📄 Download NCERT PDF</button>
+        <button class="btn btn-yt" onclick="openYT('Social Science')">▶ Watch YouTube Video Lecture</button>
+      </div>
+
+      <div class="card">
+        <span style="color:#c084fc;font-size:0.72rem;font-weight:800;">COMPUTER SCIENCE</span>
+        <h3 id="cTxt" style="font-size:1.05rem;margin:4px 0;">Class 8 Computer Science</h3>
+        <p style="color:#94a3b8;font-size:0.8rem;">Python programming basics & coding logic.</p>
+        <button class="btn btn-pdf" onclick="openBook('Computer Science')">📄 Download NCERT PDF</button>
+        <button class="btn btn-yt" onclick="openYT('Computer Science')">▶ Watch YouTube Video Lecture</button>
+      </div>
+
+      <div class="card">
+        <span style="color:#f472b6;font-size:0.72rem;font-weight:800;">ENGLISH</span>
+        <h3 id="eTxt" style="font-size:1.05rem;margin:4px 0;">Class 8 English</h3>
+        <p style="color:#94a3b8;font-size:0.8rem;">Literature chapter line-by-line & grammar.</p>
+        <button class="btn btn-pdf" onclick="openBook('English')">📄 Download NCERT PDF</button>
+        <button class="btn btn-yt" onclick="openYT('English')">▶ Watch YouTube Video Lecture</button>
+      </div>
+    </div>
+
+    <!-- 2. AI DOUBT SOLVER SECTION -->
+    <div id="sec-ai" style="display:none;">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <strong style="color:#38bdf8;">🤖 AI Doubt Solver</strong>
+          <button onclick="document.getElementById('cBox').innerHTML='<div class=\'msg-b\'>Chat cleared! Type any doubt below.</div>'" style="background:#1e293b;border:none;color:#94a3b8;font-size:0.75rem;padding:4px 8px;border-radius:6px;cursor:pointer;">Clear</button>
+        </div>
+        <div class="chat" id="cBox">
+          <div class="msg-b">Hello Scholar! Ask me any math question (e.g. <code>2x + 6 = 20</code>, <code>25 * 14</code>) or science concept (e.g. <em>Photosynthesis</em>, <em>Newton's Laws</em>, <em>Ohm's Law</em>).</div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <input type="text" id="aiIn" placeholder="Type a question or math equation..." style="flex:1;background:#050b18;border:1px solid #1e293b;color:#fff;padding:10px;border-radius:8px;font-size:0.85rem;outline:none;" onkeydown="if(event.key==='Enter')askAI()">
+          <button onclick="askAI()" style="background:#38bdf8;border:none;color:#030712;padding:0 16px;border-radius:8px;font-weight:800;cursor:pointer;">Ask</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. DOWNLOADS SECTION -->
+    <div id="sec-dl" style="display:none;">
+      <div class="card">
+        <h3 style="font-size:1rem;color:#38bdf8;margin-bottom:10px;">Saved Downloads</h3>
+        <div id="dlBox"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIXED BOTTOM AUDIO DOCK -->
+  <div class="dock">
+    <button id="pBtn" onclick="togglePlay()" style="width:36px;height:36px;border-radius:50%;background:#38bdf8;border:none;color:#030712;font-weight:900;cursor:pointer;">▶</button>
+    <div style="min-width:85px;">
+      <div id="pTxt" style="font-size:0.75rem;font-weight:800;color:#fff;">Focus Tone</div>
+      <div style="font-size:0.65rem;color:#38bdf8;">174 Hz Sound</div>
+    </div>
+    <input type="text" id="sIn" placeholder="Search track / artist..." style="flex:1;background:#050b18;border:1px solid #1e293b;color:#fff;border-radius:14px;padding:6px 10px;font-size:0.78rem;outline:none;" onkeydown="if(event.key==='Enter')findSong()">
+    <span onclick="findSong()" style="cursor:pointer;font-size:0.9rem;">🔍</span>
+  </div>
+
+  <script>
+    var curG = 8, actx = null, osc = null, playing = false;
+
+    function setGrade(g) {
+      curG = g;
+      var p = document.querySelectorAll('.pill');
+      for (var i = 0; i < p.length; i++) p[i].classList.toggle('active', p[i].textContent === ('Class ' + g));
+      document.getElementById('gradeTag').textContent = 'Class ' + g;
+      document.getElementById('mTxt').textContent = 'Class ' + g + ' Mathematics';
+      document.getElementById('sTxt').textContent = 'Class ' + g + ' Science';
+      document.getElementById('ssTxt').textContent = 'Class ' + g + ' Social Science';
+      document.getElementById('cTxt').textContent = 'Class ' + g + ' Computer Science';
+      document.getElementById('eTxt').textContent = 'Class ' + g + ' English';
+    }
+
+    function showSec(s) {
+      document.getElementById('sec-sub').style.display = s === 'sub' ? 'block' : 'none';
+      document.getElementById('sec-ai').style.display = s === 'ai' ? 'block' : 'none';
+      document.getElementById('sec-dl').style.display = s === 'dl' ? 'block' : 'none';
+      document.getElementById('tab1').className = s === 'sub' ? 'tab active' : 'tab';
+      document.getElementById('tab2').className = s === 'ai' ? 'tab active' : 'tab';
+      document.getElementById('tab3').className = s === 'dl' ? 'tab active' : 'tab';
+      if (s === 'dl') renderDL();
+    }
+
+    function openBook(sub) {
+      var item = 'Class ' + curG + ' ' + sub + ' NCERT';
+      try {
+        var list = JSON.parse(localStorage.getItem('kbd_dl') || '[]');
+        list.unshift({ title: item, date: new Date().toLocaleDateString(), url: 'https://ncert.nic.in/textbook.php' });
+        localStorage.setItem('kbd_dl', JSON.stringify(list));
+      } catch(e){}
+      alert(item + ' saved to Downloads!');
+      window.open('https://ncert.nic.in/textbook.php', '_blank');
+    }
+
+    function openYT(sub) {
+      var q = 'NCERT Class ' + curG + ' ' + sub + ' full chapter one shot';
+      window.open('https://www.youtube.com/results?search_query=' + encodeURIComponent(q), '_blank');
+    }
+
+    function renderDL() {
+      var box = document.getElementById('dlBox'), list = [];
+      try { list = JSON.parse(localStorage.getItem('kbd_dl') || '[]'); } catch(e){}
+      if (!list.length) { box.innerHTML = '<p style="color:#94a3b8;font-size:0.8rem;">No saved books yet.</p>'; return; }
+      box.innerHTML = '';
+      for (var i = 0; i < list.length; i++) {
+        box.innerHTML += '<div style="background:#050b18;border:1px solid #1e293b;padding:8px;border-radius:6px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;"><div><strong>' + list[i].title + '</strong><div style="font-size:0.7rem;color:#94a3b8;">' + list[i].date + '</div></div><a href="' + list[i].url + '" target="_blank" style="color:#38bdf8;font-weight:700;text-decoration:none;">Open</a></div>';
+      }
+    }
+
+    function askAI() {
+      var inp = document.getElementById('aiIn'), q = inp.value.trim();
+      if (!q) return;
+      var box = document.getElementById('cBox');
+      box.innerHTML += '<div class="msg-u">' + q + '</div>';
+      inp.value = '';
+      box.scrollTop = box.scrollHeight;
+
+      setTimeout(function() {
+        var a = resolveDoubt(q);
+        box.innerHTML += '<div class="msg-b">' + a + '</div>';
+        box.scrollTop = box.scrollHeight;
+      }, 250);
+    }
+
+    function resolveDoubt(q) {
+      var t = q.toLowerCase();
+      if (/^[0-9\s\+\-\*\/\(\)\.\^]+$/.test(q)) {
+        try { return '<strong>Answer:</strong> ' + q + ' = <strong style="color:#38bdf8;">' + Function('"use strict";return (' + q + ')')() + '</strong>'; } catch(e){}
+      }
+      var eq = t.replace(/\s+/g, '').match(/^([+-]?\d*)x([+-]\d+)?=([+-]?\d+)$/);
+      if (eq) {
+        var a = (eq[1] === '' || eq[1] === '+') ? 1 : (eq[1] === '-' ? -1 : parseInt(eq[1], 10));
+        var b = eq[2] ? parseInt(eq[2], 10) : 0, c = parseInt(eq[3], 10);
+        var x = (c - b) / a;
+        return '<strong>Algebraic Solution:</strong><br>• Given: <code>' + q + '</code><br>• Transpose: ' + a + 'x = ' + (c - b) + '<br>• Result: <strong style="color:#38bdf8;">x = ' + x + '</strong>';
+      }
+      if (t.indexOf('photosynthesis') !== -1) return '<strong>Photosynthesis:</strong><br>Process where green plants convert CO₂ and H₂O into glucose using sunlight and chlorophyll.<br><code>6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂</code>';
+      if (t.indexOf('pythagoras') !== -1) return '<strong>Pythagoras Theorem:</strong><br>In a right-angled triangle: <code>Hypotenuse² = Base² + Perpendicular²</code> (c² = a² + b²).';
+      if (t.indexOf('newton') !== -1) return '<strong>Newton\'s Laws:</strong><br>1. Inertia<br>2. Force = mass × acceleration (F = m × a)<br>3. Action = -Reaction';
+      if (t.indexOf('ohm') !== -1) return '<strong>Ohm\'s Law:</strong><br>V = I × R (Voltage = Current × Resistance).';
+      return '<strong>Academic Concept:</strong><br>For <em>"' + q + '"</em> in Class ' + curG + ', review the core NCERT textbook definition and state the formula first.';
+    }
+
+    function togglePlay() {
+      var btn = document.getElementById('pBtn');
+      if (!playing) {
+        try {
+          if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+          osc = actx.createOscillator();
+          var gain = actx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(174, actx.currentTime);
+          gain.gain.setValueAtTime(0.03, actx.currentTime);
+          osc.connect(gain); gain.connect(actx.destination);
+          osc.start();
+          playing = true; btn.textContent = '❚❚';
+          document.getElementById('pTxt').textContent = '174 Hz Sound';
+        } catch(e){}
+      } else {
+        if (osc) { try { osc.stop(); } catch(e){} osc = null; }
+        playing = false; btn.textContent = '▶';
+        document.getElementById('pTxt').textContent = 'Audio Paused';
+      }
+    }
+
+    function findSong() {
+      var v = document.getElementById('sIn').value.trim();
+      if (v) window.open('https://music.youtube.com/search?q=' + encodeURIComponent(v), '_blank');
+    }
+  </script>
+</body>
+</html>
